@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Montano School - Digital Whiteboard: Experimental Investigations</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        montanoBlue: '#1269A8',
+                        montanoYellow: '#F7D615',
+                        montanoGreen: '#54887D',
+                        montanoLightBlue: '#88B5C7',
+                        montanoOlive: '#A6B046',
+                        montanoBg: '#F2F5E9',
+                    },
+                    fontFamily: {
+                        sans: ['Segoe UI', 'Tahoma', 'Verdana', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F2F5E9;
+            font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+        }
+        .tab-btn.active {
+            background-color: #1269A8;
+            color: #ffffff;
+            border-bottom: 4px solid #F7D615;
+            font-weight: 700;
+        }
+        .tab-btn {
+            background-color: #ffffff;
+            color: #54887D;
+            transition: all 0.3s ease;
+        }
+        .tab-btn:hover:not(.active) {
+            background-color: #88B5C7;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between text-gray-800">
+
+    <!-- HEADER / INSTITUTIONAL BAR -->
+    <header class="bg-montanoBlue text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap justify-between items-center">
+            <!-- Brand & Logo -->
+            <div class="flex items-center space-x-4">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyEop0yf6lZ7Jk9MILZxF1rBj4Oqs5esyhIQ&s" 
+                     alt="Colegio Montano Logo" 
+                     class="h-12 w-auto bg-white p-1 rounded-md shadow-sm"
+                     onerror="this.src='https://placehold.co/100x100/1269A8/ffffff?text=Montano'">
+                <div>
+                    <h1 class="text-xl font-bold tracking-wide uppercase text-montanoYellow">Colegio Montano</h1>
+                    <p class="text-xs text-montanoLightBlue font-semibold">Interactive Digital Whiteboard | High School</p>
+                </div>
+            </div>
+
+            <!-- Header Actions & Fullscreen -->
+            <div class="flex items-center space-x-3 mt-2 sm:mt-0">
+                <button onclick="toggleFullscreen()" 
+                        class="flex items-center space-x-2 bg-montanoYellow text-montanoBlue font-bold px-4 py-2 rounded-lg hover:bg-yellow-400 transition shadow">
+                    <i class="fa-solid fa-expand"></i>
+                    <span>Fullscreen</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- METADATA & INSTITUTIONAL COMPONENTS BANNER -->
+    <section class="bg-white border-b border-gray-200 py-4 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-2 text-center text-xs font-semibold text-gray-600 mb-3">
+                <div class="bg-montanoBg p-2 rounded-lg border border-gray-300">
+                    <span class="block text-montanoBlue font-bold uppercase">Course</span>
+                    Psychology
+                </div>
+                <div class="bg-montanoBg p-2 rounded-lg border border-gray-300">
+                    <span class="block text-montanoBlue font-bold uppercase">Topic</span>
+                    Experimental Designs
+                </div>
+                <div class="bg-montanoBg p-2 rounded-lg border border-gray-300">
+                    <span class="block text-montanoBlue font-bold uppercase">Grade</span>
+                    4th High School
+                </div>
+                <div class="bg-montanoBg p-2 rounded-lg border border-gray-300">
+                    <span class="block text-montanoBlue font-bold uppercase">Unit / Plan</span>
+                    Unit 2 | Plan #4
+                </div>
+                <div class="bg-montanoBg p-2 rounded-lg border border-gray-300">
+                    <span class="block text-montanoBlue font-bold uppercase">Date</span>
+                    April 12th - 16th
+                </div>
+                <div class="bg-montanoBg p-2 rounded-lg border border-gray-300">
+                    <span class="block text-montanoBlue font-bold uppercase">Teacher</span>
+                    Elysa López
+                </div>
+                <div class="bg-montanoBg p-2 rounded-lg border border-gray-300 col-span-2 sm:col-span-2 md:col-span-2">
+                    <span class="block text-montanoBlue font-bold uppercase">Montano Habits</span>
+                    <span class="text-montanoGreen font-bold">1. Be Proactive</span> | <span class="text-montanoGreen font-bold">6. Synergize</span>
+                </div>
+            </div>
+
+            <!-- Pedagogical Competency & CNB Focus -->
+            <div class="bg-montanoBg rounded-xl p-3 border-l-4 border-montanoBlue text-xs text-gray-700 flex flex-col md:flex-row justify-between gap-2">
+                <div>
+                    <strong class="text-montanoBlue">CNB Competency:</strong> Constructs rigorous experimental research models to establish cause-and-effect relationships while controlling for confounding variables and methodological artifacts.
+                </div>
+                <div>
+                    <strong class="text-montanoGreen">Learning Outcome:</strong> Differentiates correlation from causation, identifies experimental vs. control groups, isolates confounding variables, and formulates valid conclusions.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT AREA WITH NAVIGATION TABS -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full">
+        
+        <!-- TAB BUTTONS NAV -->
+        <div class="flex flex-wrap gap-2 border-b border-gray-300 mb-6" id="tabContainer">
+            <button onclick="switchTab('tab1')" id="btn-tab1" class="tab-btn active px-5 py-3 rounded-t-lg font-bold flex items-center space-x-2 shadow-sm">
+                <i class="fa-solid fa-link-slash"></i>
+                <span>I) Correlation vs. Causation (~5 min)</span>
+            </button>
+            <button onclick="switchTab('tab2')" id="btn-tab2" class="tab-btn px-5 py-3 rounded-t-lg font-bold flex items-center space-x-2 shadow-sm">
+                <i class="fa-solid fa-flask-vial"></i>
+                <span>II) Experimental Logic & Fictional Case (20 min)</span>
+            </button>
+            <button onclick="switchTab('tab3')" id="btn-tab3" class="tab-btn px-5 py-3 rounded-t-lg font-bold flex items-center space-x-2 shadow-sm">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>III) Controls, Confounds & Fair Testing (30 min)</span>
+            </button>
+            <button onclick="switchTab('tab4')" id="btn-tab4" class="tab-btn px-5 py-3 rounded-t-lg font-bold flex items-center space-x-2 shadow-sm">
+                <i class="fa-solid fa-clipboard-check"></i>
+                <span>IV) Plenary & Validity Assessment (15 min)</span>
+            </button>
+        </div>
+
+        <!-- TAB CONTENT SECTIONS -->
+
+        <!-- TAB 1: INTRO / WARM-UP -->
+        <div id="tab1" class="tab-content block space-y-6">
+            <div class="bg-white rounded-2xl p-6 shadow-md border-t-4 border-montanoYellow">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-2xl font-bold text-montanoBlue flex items-center space-x-2">
+                        <i class="fa-solid fa-bolt text-montanoYellow"></i>
+                        <span>Stage I: Warm-up — Correlation vs. Causation</span>
+                    </h2>
+                    <span class="bg-yellow-100 text-yellow-800 text-xs font-bold px-3 py-1 rounded-full">Duration: ~5-10 min</span>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Warm-up Prompt -->
+                    <div class="bg-montanoBg p-5 rounded-xl border border-gray-200 space-y-3">
+                        <h3 class="font-bold text-montanoBlue text-lg"><i class="fa-solid fa-triangle-exclamation text-montanoYellow mr-2"></i>The Ice Cream Paradox</h3>
+                        <p class="text-xs text-gray-700">Analyze this statistical fact with your seat partner:</p>
+                        <div class="bg-white p-3 rounded-lg border-l-4 border-montanoBlue text-xs italic font-semibold text-gray-700">
+                            "Data shows that as ice cream sales increase, rates of drowning incidents also rise dramatically."
+                        </div>
+                        <ol class="list-decimal list-inside text-xs text-gray-700 space-y-1.5 bg-white p-3 rounded-lg border border-gray-200">
+                            <li>Does eating ice cream <strong>cause</strong> drowning?</li>
+                            <li>What hidden <strong>3rd variable (confound)</strong> explains both increases?</li>
+                            <li>Why do only controlled experiments allow us to prove true causation?</li>
+                        </ol>
+                        <button onclick="toggleAnswer('warmupAns')" class="w-full bg-montanoBlue text-white text-xs py-2 rounded-lg font-bold hover:bg-blue-800 transition">
+                            Reveal Cause-and-Effect Rationale
+                        </button>
+                        <div id="warmupAns" class="hidden text-xs bg-white p-3 rounded-lg border-l-4 border-montanoYellow text-gray-700 space-y-1">
+                            <p><strong>Hidden Variable (Confound):</strong> Summer heat/temperature! Warm weather increases both ice cream consumption and swimming activity.</p>
+                            <p><strong>Core Rule:</strong> Correlation indicates a statistical relationship, but ONLY controlled experimentation proves causation by isolating variables.</p>
+                        </div>
+                    </div>
+
+                    <!-- Direct Modeling: Key Experimental Foundations -->
+                    <div class="bg-montanoBg p-5 rounded-xl border border-gray-200 space-y-3">
+                        <h3 class="font-bold text-montanoGreen text-lg"><i class="fa-solid fa-vial mr-2"></i>Anatomy of an Experiment</h3>
+                        <div class="grid grid-cols-1 gap-2 text-xs">
+                            <div class="p-2.5 bg-white rounded border-l-4 border-montanoBlue">
+                                <strong>Independent Variable (IV):</strong> The manipulated factor (e.g., dosage, treatment, condition).
+                            </div>
+                            <div class="p-2.5 bg-white rounded border-l-4 border-montanoYellow">
+                                <strong>Dependent Variable (DV):</strong> The measured effect resulting from IV changes.
+                            </div>
+                            <div class="p-2.5 bg-white rounded border-l-4 border-montanoGreen">
+                                <strong>Experimental vs. Control Group:</strong> Group receiving treatment vs. baseline comparison group (or placebo).
+                            </div>
+                            <div class="p-2.5 bg-white rounded border-l-4 border-red-400">
+                                <strong>Confounding Variable:</strong> An uncontrolled outside factor that ruins experiment validity.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: INDIVIDUAL WORK / FICTIONAL EXPERIMENT ANALYSIS -->
+        <div id="tab2" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 shadow-md border-t-4 border-montanoBlue">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-2xl font-bold text-montanoBlue flex items-center space-x-2">
+                        <i class="fa-solid fa-microscope text-montanoBlue"></i>
+                        <span>Stage II: Experimental Logic & Fictional Case Analysis</span>
+                    </h2>
+                    <span class="bg-blue-100 text-montanoBlue text-xs font-bold px-3 py-1 rounded-full">Duration: 20 min</span>
+                </div>
+
+                <!-- Case Study Box -->
+                <div class="bg-montanoBg p-4 rounded-xl border border-montanoBlue mb-4 text-xs text-gray-700 space-y-2">
+                    <span class="bg-montanoBlue text-white font-bold px-2 py-0.5 rounded uppercase">Fictional Experiment Case</span>
+                    <h3 class="font-bold text-sm text-montanoBlue">"The Nootropic Memory Supplement Test"</h3>
+                    <p>
+                        Dr. Aris testing a new cognitive supplement, "BrainBoost". He places 30 college students in Group A and gives them 100mg of BrainBoost every morning at 8:00 AM before a quiet study session. He places 30 college students in Group B, gives them a sugar pill (placebo) at 8:00 AM, but allows them to listen to music while studying. After 2 weeks, Group A scores 18% higher on a memory recall test than Group B.
+                    </p>
+                </div>
+
+                <!-- Interactive Analysis Questions -->
+                <div class="space-y-3">
+                    
+                    <div class="p-3 bg-montanoBg rounded-xl border border-gray-300">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-xs text-montanoBlue">1. Identify the IV and DV:</span>
+                            <button onclick="toggleAnswer('caseAns1')" class="bg-montanoBlue text-white text-xs px-3 py-1 rounded hover:bg-blue-800 transition">
+                                Reveal Key
+                            </button>
+                        </div>
+                        <div id="caseAns1" class="hidden mt-2 p-2.5 bg-white rounded-lg border-l-4 border-montanoGreen text-xs space-y-1">
+                            <p><strong>IV:</strong> Consumption of "BrainBoost" vs. Placebo (sugar pill).</p>
+                            <p><strong>DV:</strong> Memory recall test score (percentage performance).</p>
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-montanoBg rounded-xl border border-gray-300">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-xs text-montanoBlue">2. Identify the Major Confounding Variable:</span>
+                            <button onclick="toggleAnswer('caseAns2')" class="bg-montanoBlue text-white text-xs px-3 py-1 rounded hover:bg-blue-800 transition">
+                                Reveal Key
+                            </button>
+                        </div>
+                        <div id="caseAns2" class="hidden mt-2 p-2.5 bg-white rounded-lg border-l-4 border-red-500 text-xs space-y-1">
+                            <p><strong class="text-red-600">Confound:</strong> Background environment during study sessions (Quiet environment vs. Music listening).</p>
+                            <p><strong>Why?</strong> The difference in test performance could be caused by music distraction rather than the supplement!</p>
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-montanoBg rounded-xl border border-gray-300">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-xs text-montanoBlue">3. How should Dr. Aris standardize this procedure?</span>
+                            <button onclick="toggleAnswer('caseAns3')" class="bg-montanoBlue text-white text-xs px-3 py-1 rounded hover:bg-blue-800 transition">
+                                Reveal Key
+                            </button>
+                        </div>
+                        <div id="caseAns3" class="hidden mt-2 p-2.5 bg-white rounded-lg border-l-4 border-montanoYellow text-xs space-y-1">
+                            <p><strong>Standardization Fix:</strong> Keep study conditions 100% identical for both groups (same room, same noise level, same duration, same lighting, random assignment).</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: TEAMWORK / FAIR-TEST DESIGN -->
+        <div id="tab3" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 shadow-md border-t-4 border-montanoGreen">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-2xl font-bold text-montanoBlue flex items-center space-x-2">
+                        <i class="fa-solid fa-sliders text-montanoGreen"></i>
+                        <span>Stage III: Team Workshop — Designing a Fair-Test Experiment</span>
+                    </h2>
+                    <span class="bg-green-100 text-montanoGreen text-xs font-bold px-3 py-1 rounded-full">Duration: 30 min</span>
+                </div>
+
+                <!-- Roles definition -->
+                <div class="grid sm:grid-cols-3 gap-3 mb-6">
+                    <div class="bg-montanoBg p-3 rounded-lg border border-gray-300 text-center">
+                        <span class="font-bold text-montanoBlue text-sm block"><i class="fa-solid fa-flask mr-1"></i> Lead Experimentalist</span>
+                        <span class="text-xs text-gray-600">Defines IV manipulation and operationalized DV metrics.</span>
+                    </div>
+                    <div class="bg-montanoBg p-3 rounded-lg border border-gray-300 text-center">
+                        <span class="font-bold text-montanoGreen text-sm block"><i class="fa-solid fa-shield-virus mr-1"></i> Standardization Officer</span>
+                        <span class="text-xs text-gray-600">Identifies potential confounds and designs strict control protocols.</span>
+                    </div>
+                    <div class="bg-montanoBg p-3 rounded-lg border border-gray-300 text-center">
+                        <span class="font-bold text-montanoOlive text-sm block"><i class="fa-solid fa-bullhorn mr-1"></i> Spokesperson</span>
+                        <span class="text-xs text-gray-600">Presents experimental design to the class plenary.</span>
+                    </div>
+                </div>
+
+                <!-- Workshop Blueprint Task -->
+                <div class="bg-montanoBg p-5 rounded-xl border border-montanoGreen space-y-4">
+                    <h3 class="text-lg font-bold text-montanoGreen flex items-center space-x-2">
+                        <i class="fa-solid fa-vial-circle-check"></i>
+                        <span>Task: Experimental Blueprint Protocol</span>
+                    </h3>
+                    <p class="text-sm text-gray-700">
+                        Select one research prompt below and construct a fully standardized experimental protocol:
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-2 text-xs mb-2">
+                        <div class="p-2.5 bg-white rounded-lg border border-gray-300 font-semibold text-montanoBlue">
+                            Prompt A: "Testing if red light illumination increases typing accuracy under time pressure."
+                        </div>
+                        <div class="p-2.5 bg-white rounded-lg border border-gray-300 font-semibold text-montanoBlue">
+                            Prompt B: "Testing if taking a 10-minute power nap restores short-term memory after 4 hours of studying."
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-4 gap-2 text-xs">
+                        <div class="bg-white p-3 rounded-lg border border-gray-300">
+                            <strong class="text-montanoBlue block mb-1">1. Groups & IV/DV</strong>
+                            Specify Experimental Group vs. Control Group and measurement units.
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-gray-300">
+                            <strong class="text-montanoGreen block mb-1">2. Random Assignment</strong>
+                            How will you eliminate participant selection bias?
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-gray-300">
+                            <strong class="text-yellow-700 block mb-1">3. Confound Control</strong>
+                            List 3 environmental/procedural factors kept 100% constant.
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-gray-300">
+                            <strong class="text-purple-700 block mb-1">4. Double-Blind Option</strong>
+                            How will experimenter bias or placebo effect be minimized?
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: PLENARY & ASSESSMENT -->
+        <div id="tab4" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 shadow-md border-t-4 border-montanoLightBlue">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-2xl font-bold text-montanoBlue flex items-center space-x-2">
+                        <i class="fa-solid fa-comments text-montanoLightBlue"></i>
+                        <span>Stage IV: Plenary Presentations & Exit Assessment</span>
+                    </h2>
+                    <span class="bg-blue-100 text-montanoBlue text-xs font-bold px-3 py-1 rounded-full">Duration: 15 min</span>
+                </div>
+
+                <!-- Plenary & Exit Ticket Info -->
+                <div class="grid md:grid-cols-2 gap-4 mb-6">
+                    <div class="bg-montanoBg p-4 rounded-xl border border-gray-300">
+                        <h3 class="font-bold text-montanoBlue text-sm mb-1"><i class="fa-solid fa-chalkboard-user mr-2"></i>Plenary Share (10 min)</h3>
+                        <p class="text-xs text-gray-600">Teams pitch their Experimental Blueprint in 90 seconds. Peer reviewers challenge their control mechanisms.</p>
+                    </div>
+                    <div class="bg-montanoBg p-4 rounded-xl border border-gray-300">
+                        <h3 class="font-bold text-montanoGreen text-sm mb-1"><i class="fa-solid fa-ticket mr-2"></i>Exit Ticket (5 min)</h3>
+                        <p class="text-xs text-gray-600">On your card: <em>"An experiment shows students taking notes by hand score higher on conceptual tests than those typing. What CAN and CANNOT be concluded about intelligence?"</em></p>
+                    </div>
+                </div>
+
+                <!-- Interactive Rubric -->
+                <div class="border border-gray-300 rounded-xl overflow-hidden shadow-sm">
+                    <div class="bg-montanoBlue text-white px-4 py-3 font-bold flex justify-between items-center text-sm">
+                        <span><i class="fa-solid fa-clipboard-list mr-2"></i> Experimental Rigor Plenary Rubric</span>
+                        <span class="text-xs bg-montanoYellow text-montanoBlue px-2 py-1 rounded font-bold">Interactive Scoring</span>
+                    </div>
+
+                    <div class="p-4 bg-gray-50 overflow-x-auto">
+                        <table class="w-full text-left text-xs text-gray-700">
+                            <thead class="bg-gray-200 text-gray-800 uppercase font-semibold">
+                                <tr>
+                                    <th class="p-2">Criteria</th>
+                                    <th class="p-2">Developing (1 pt)</th>
+                                    <th class="p-2">Proficient (2 pts)</th>
+                                    <th class="p-2">Exemplary (3 pts)</th>
+                                    <th class="p-2 text-center">Score</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="p-2 font-bold text-montanoBlue">1. Cause-and-Effect Isolation</td>
+                                    <td class="p-2">Confuses correlational and experimental logic.</td>
+                                    <td class="p-2">Clearly isolates IV manipulation and DV response.</td>
+                                    <td class="p-2">Flawlessly justifies cause-and-effect relationship using experimental controls.</td>
+                                    <td class="p-2 text-center">
+                                        <select class="border rounded p-1 text-xs" onchange="calculateScore()">
+                                            <option value="1">1 pt</option>
+                                            <option value="2">2 pts</option>
+                                            <option value="3" selected>3 pts</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2 font-bold text-montanoBlue">2. Confound Elimination</td>
+                                    <td class="p-2">Leaves obvious confounding variables unaddressed.</td>
+                                    <td class="p-2">Identifies and controls major extraneous variables.</td>
+                                    <td class="p-2">Anticipates subtle confounds and designs thorough standardization protocols.</td>
+                                    <td class="p-2 text-center">
+                                        <select class="border rounded p-1 text-xs" onchange="calculateScore()">
+                                            <option value="1">1 pt</option>
+                                            <option value="2">2 pts</option>
+                                            <option value="3" selected>3 pts</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2 font-bold text-montanoBlue">3. Group Standardization</td>
+                                    <td class="p-2">Control and experimental groups lack comparability.</td>
+                                    <td class="p-2">Uses random assignment and clear group parameters.</td>
+                                    <td class="p-2">Incorporates advanced controls (placebo/double-blind) effectively.</td>
+                                    <td class="p-2 text-center">
+                                        <select class="border rounded p-1 text-xs" onchange="calculateScore()">
+                                            <option value="1">1 pt</option>
+                                            <option value="2">2 pts</option>
+                                            <option value="3" selected>3 pts</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2 font-bold text-montanoBlue">4. Communication & Defense</td>
+                                    <td class="p-2">Struggles to defend design choices during Q&A.</td>
+                                    <td class="p-2">Explains experimental logic clearly and answers questions.</td>
+                                    <td class="p-2">Demonstrates high critical thinking and precise scientific terminology.</td>
+                                    <td class="p-2 text-center">
+                                        <select class="border rounded p-1 text-xs" onchange="calculateScore()">
+                                            <option value="1">1 pt</option>
+                                            <option value="2">2 pts</option>
+                                            <option value="3" selected>3 pts</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="mt-4 flex justify-between items-center bg-white p-3 rounded-lg border border-gray-300 font-bold text-sm">
+                            <span class="text-gray-700 font-bold">Total Score:</span>
+                            <span id="totalScore" class="text-montanoGreen text-lg">12 / 12 pts</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER INSTITUTIONAL BANNER -->
+    <footer class="bg-montanoBlue text-white py-3 text-center text-xs">
+        <p>© Colegio Montano | Teacher Elysa López | Formative Model & Excellence | CNB Guatemala Aligned</p>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT -->
+    <script>
+        // Tab switching logic
+        function switchTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.add('hidden'));
+
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabId).classList.remove('hidden');
+            document.getElementById('btn-' + tabId).classList.add('active');
+        }
+
+        // Toggle answer hidden/revealed
+        function toggleAnswer(ansId) {
+            const answerElement = document.getElementById(ansId);
+            if (answerElement.classList.contains('hidden')) {
+                answerElement.classList.remove('hidden');
+            } else {
+                answerElement.classList.add('hidden');
+            }
+        }
+
+        // Calculate rubric total score
+        function calculateScore() {
+            const selects = document.querySelectorAll('select');
+            let total = 0;
+            selects.forEach(select => {
+                total += parseInt(select.value);
+            });
+            document.getElementById('totalScore').innerText = total + ' / 12 pts';
+        }
+
+        // Fullscreen Toggle logic
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.error(`Error attempting to enable fullscreen: ${err.message}`);
+                });
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+    </script>
+</body>
+</html>
